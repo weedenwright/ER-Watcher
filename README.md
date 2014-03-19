@@ -33,7 +33,7 @@ The object is returned as:
 
 Where 'wait_times' is an array of wait times for that feed.
 
-### GetFacility
+### er_watcher.GetFacility(facilityName)
 
 After creating a new ERWatcher, you can run this command:
 
