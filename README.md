@@ -21,9 +21,9 @@ There are 2 main functions of this library:
 
 These 2 lines:
 - Create a new 'ERWatcher' object that holds all the information for the 'Capital' Feed
-- getFeedData - retrieves the data for the feed
+- getFeedData(callback) - retrieves the data for the feed but REQUIRES a callback function as the request is made 'asynchronously'
 
-The object is returned as:
+The object is then passed to the callback function as:
 
 	data_loaded: true
 	date_format: "ddd, DD MMM YYYY HH:mm:ss"
