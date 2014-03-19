@@ -24,7 +24,7 @@ Once you have an ERWatcher object created, you can call getFeedData with a callb
 
 	er_watcher.getFeedData(processFeedData);
 
-As the feed request is made 'asynchronously', it REQUIRES a callback function be passed to it so that the return results can be actually accessed. This can be very fast, or can take awhile depending on several factors. Check the console for errors in case it times out.
+As the feed request is made 'asynchronously', it REQUIRES a callback function be passed to it so that the returned results can be accessed. This can be very fast, or can take awhile depending on several factors. Check the console for errors in case it times out.
 
 The callback function is then passed an object that looks like this:
 
