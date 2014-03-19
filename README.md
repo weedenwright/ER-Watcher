@@ -21,7 +21,7 @@ There are 2 main functions of this library:
 
 These 2 lines:
 - Create a new 'ERWatcher' object that holds all the information for the 'Capital' Feed
-- getFeedData(callback) - retrieves the data for the feed but REQUIRES a callback function as the request is made 'asynchronously'
+- getFeedData(callback) - retrieves the data for the feed but REQUIRES a callback function as the request is made 'asynchronously'. This can be very fast, or can take awhile depending on several factors. Check the console for errors in case it times out.
 
 The object is then passed to the callback function as:
 
