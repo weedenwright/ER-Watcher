@@ -14,16 +14,19 @@ requested.
 
 ### ERWatcher
 
-There are 2 main functions of this library:
+The ERWatcher object holds all the information for the feed name passed to it.
 
 	var er_watcher = new ERWatcher("Capital");
+
+### getFeedData(callback)
+
+Once you have an ERWatcher object created, you can call getFeedData with a callback function.
+
 	er_watcher.getFeedData(processFeedData);
 
-These 2 lines:
-- Create a new 'ERWatcher' object that holds all the information for the 'Capital' Feed
-- getFeedData(callback) - retrieves the data for the feed but REQUIRES a callback function as the request is made 'asynchronously'. This can be very fast, or can take awhile depending on several factors. Check the console for errors in case it times out.
+As the feed request is made 'asynchronously', it REQUIRES a callback function be passed to it so that the return results can be actually accessed. This can be very fast, or can take awhile depending on several factors. Check the console for errors in case it times out.
 
-The object is then passed to the callback function as:
+The callback function is then passed an object that looks like this:
 
 	data_loaded: true
 	date_format: "ddd, DD MMM YYYY HH:mm:ss"
@@ -33,7 +36,7 @@ The object is then passed to the callback function as:
 
 Where 'wait_times' is an array of wait times for that feed.
 
-### GetFacility
+### getFacility(facilityName)
 
 After creating a new ERWatcher, you can run this command:
 
