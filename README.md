@@ -50,3 +50,22 @@ The object facility_info will then be set to:
 	url: "www.frankfortregional.com"	
 
 Which is all the data available for that particular facility.
+
+## Available Divisions / Feeds
+	Capital
+	Continental
+	Central West Texas
+	Delta
+	East Florida
+	Far West
+	Gulf Coast
+	Midwest
+	Mountain
+	North Florida
+	North Texas
+	Richmond
+	San Antonio
+	South Atlantic
+	Tristar
+	West Florida
+
