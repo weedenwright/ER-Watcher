@@ -33,10 +33,10 @@ REQUIRES:
 google.load("feeds", "1");
 
 // STEP 2 - Console fix (for less-than-adaquate browsers)
-if(typeof console === "undefined") { 
-	console = { 
-		log: function() { } 
-	}; 
+if(typeof console === "undefined") {
+	console = {
+		log: function() { }
+	};
 }
 
 // STEP 3 - Function to list of all HCA ER Wait feeds
@@ -162,14 +162,14 @@ var ERWatcher = function(feed_name) {
 	this.feed_name = "Feed Not Found: " + feed_name;
 	this.feed_url = undefined;
 	this.date_format = undefined;
-}
+};
 
 // STEP 5 - Create the prototype function for the ER Watcher that retrieves the data from the feed
 ERWatcher.prototype = {
 	getFeedData: function(successCallBack) {
-	  	// Setup random extra on URL to avoid google caching URL
+		// Setup random extra on URL to avoid google caching URL
 		var non_cache = "?"+Math.random();
-	    var feed_url = this.feed_url + non_cache;
+		var feed_url = this.feed_url + non_cache;
 
 		// Get the feed usign Google feeds
 		var feed = new google.feeds.Feed(feed_url);

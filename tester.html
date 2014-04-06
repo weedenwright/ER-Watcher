@@ -2,15 +2,23 @@
 	<head>
 		<title>ER Watcher</title>
 		<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<style>
+			body {
+				text-align:center;
+			}
+			div {
+				padding:10px;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="container">
 			<div class="row">
-				<h1>Your Wait Time</h1>
-				<div id="er-watcher">
-					<ul>
-					</ul>
-       		 	</div>
+				<div class="col-md-4 col-md-offset-4">
+					<h1>Your Wait Time</h1>
+					<div class="bg-info">Feed times last retrieved at <span class="time-retrieved"></span></div>
+					<div id="er-watcher"></div>
+				</div>
 			</div>
 		</div>
 
@@ -18,20 +26,63 @@
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script type="text/javascript" src="js/er-watcher.min.js"></script>
 		<script>
+			
+			// Global counter for changing colors
+			var refresh_count = 0;
+		
 			// Page load code
 			$(function() {
+				// Run on page load
+				runERWatcher();
+				
+				// Put in timer to run every 4.5 minutes after page load
+				//var refresh_time = 270000; // 4.5 minutes
+				var refresh_time = 5000; // 5 seconds - for testing
+				setInterval(runERWatcher,refresh_time);
+			});
+			
+			// Actually runs the ER Watcher
+			function runERWatcher() {
 				// Setup the er watcher - pass it the feed_name (usually synonymous with the division)
 				var er_watcher = new ERWatcher("Capital");
 				er_watcher.getFeedData(processFeedData);
-			});
+			}
 
 			// Callback function that uses 'er_watcher' data
 			function processFeedData(er_watcher) {
+				// Output variables for referencing
 				console.log(er_watcher);
 				console.log(er_watcher.getFacility("Frankfort"));
+				
+				// Update the 'time retrieved' at
+				refresh_count = refresh_count + 1;
+				var current_date = new Date();
+				var seconds = current_date.getSeconds().toString();
+				if(seconds.length == 1) {
+					seconds = "0" + seconds;
+				}
+				var current_time = current_date.getHours() + ":" + current_date.getMinutes() + ":" + seconds;
+				$(".time-retrieved").html(current_time);
+				
+				// Change background color to see refresh
+				if(refresh_count % 2 != 0) {
+					$(".time-retrieved").parent().removeClass("bg-info").addClass("bg-success");
+				} else {
+					$(".time-retrieved").parent().removeClass("bg-success").addClass("bg-info");
+				}
+
+				// Print out the times
 				for(var i = 0; i < er_watcher.wait_times.length; i++) {
-					$("#er-watcher ul").append("<li>" + er_watcher.wait_times[i].facility 
-							+ ": " + er_watcher.wait_times[i].er_time + "</li>");
+					var er_wait_time = er_watcher.wait_times[i];
+					var section_html = '<div class="panel panel-info">' +
+											'<div class="panel-heading">' +
+												'<h3 class="panel-title">'+ er_wait_time.facility + '</h3>' +
+											'</div>' +
+											'<div class="panel-body">' +
+												er_wait_time.er_time + ", as of " + er_wait_time.pub_date +
+											'</div>' +
+										'</div>';
+					$("#er-watcher").append(section_html);
 				}
 			}
 		</script>
