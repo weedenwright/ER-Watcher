@@ -57,24 +57,33 @@
 				// Update the 'time retrieved' at
 				refresh_count = refresh_count + 1;
 				var current_date = new Date();
+				var minutes = current_date.getMinutes().toString();
 				var seconds = current_date.getSeconds().toString();
 				if(seconds.length == 1) {
 					seconds = "0" + seconds;
 				}
-				var current_time = current_date.getHours() + ":" + current_date.getMinutes() + ":" + seconds;
+				if(minutes.length == 1) {
+					minutes = "0" + minutes;
+				}
+				var current_time = current_date.getHours() + ":" + minutes + ":" + seconds;
 				$(".time-retrieved").html(current_time);
 				
 				// Change background color to see refresh
+				var remove_class = "bg-info";
+				var add_class = "bg-success";
+				var panel_class = "panel-success";
 				if(refresh_count % 2 != 0) {
-					$(".time-retrieved").parent().removeClass("bg-info").addClass("bg-success");
-				} else {
-					$(".time-retrieved").parent().removeClass("bg-success").addClass("bg-info");
+					remove_class = "bg-success";
+					add_class = "bg-info";
+					panel_class = "panel-info";
 				}
+				$(".time-retrieved").parent().removeClass(remove_class).addClass(add_class);
 
 				// Print out the times
+				var section_html = "";
 				for(var i = 0; i < er_watcher.wait_times.length; i++) {
 					var er_wait_time = er_watcher.wait_times[i];
-					var section_html = '<div class="panel panel-info">' +
+					var section_html = section_html + '<div class="panel ' + panel_class + '">' +
 											'<div class="panel-heading">' +
 												'<h3 class="panel-title">'+ er_wait_time.facility + '</h3>' +
 											'</div>' +
@@ -82,7 +91,7 @@
 												er_wait_time.er_time + ", as of " + er_wait_time.pub_date +
 											'</div>' +
 										'</div>';
-					$("#er-watcher").append(section_html);
+					$("#er-watcher").html(section_html);
 				}
 			}
 		</script>
